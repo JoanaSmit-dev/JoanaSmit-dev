@@ -1,67 +1,326 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mobile App Developer Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Google Fonts for a clean, technical look -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DIY Bike Fit - Cycling Posture & Angle Analyser</title>
+  <link rel="icon" type="image/png" href="icon.png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <style>
+    /* Reset & Base */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #fff;
+      color: #2e2e3a;
+      line-height: 1.5;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    a:focus, button:focus {
+      outline: 3px solid #d9a9ff;
+      outline-offset: 2px;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+    h1, h2, h3 {
+      font-weight: 700;
+      color: #4b247a;
+      margin-top: 0;
+      margin-bottom: 0.5em;
+    }
+    p {
+      margin-top: 0;
+      margin-bottom: 1em;
+    }
+
+    /* Container */
+    .container {
+      max-width: 960px;
+      margin: 20px auto;
+      padding: 0 15px;
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      background: #faf5ff;
+      box-shadow: 0 2px 5px rgba(75, 36, 122, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 15px;
+      z-index: 10;
+    }
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #7f3fbf;
+    }
+    .btn-download {
+      background: #9b51e0;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      font-weight: 600;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-size: 1rem;
+    }
+    .btn-download:hover,
+    .btn-download:focus {
+      background: #7f3fbf;
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 60px 20px 40px;
+      background: linear-gradient(135deg, #9b51e0 0%, #cf94ff 100%);
+      color: #fff;
+    }
+    .hero h1 {
+      font-size: 2.25rem;
+      max-width: 600px;
+      margin: 0 auto 0.5em;
+      line-height: 1.2;
+    }
+    .hero p {
+      font-size: 1.125rem;
+      max-width: 520px;
+      margin: 0 auto 1.5em;
+      font-weight: 500;
+      opacity: 0.9;
+    }
+    .hero .btn-group {
+      display: inline-flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .btn-primary {
+      background-color: #d9a9ff;
+      color: #4b247a;
+      border: none;
+      padding: 14px 28px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border-radius: 32px;
+      cursor: pointer;
+      text-transform: uppercase;
+      box-shadow: 0 8px 20px rgba(217, 169, 255, 0.5);
+      transition: background-color 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-primary:hover,
+    .btn-primary:focus {
+      background-color: #c375ff;
+      box-shadow: 0 10px 25px rgba(195, 117, 255, 0.7);
+    }
+    .btn-secondary {
+      background: transparent;
+      color: #d9a9ff;
+      border: 2px solid #d9a9ff;
+      padding: 12px 24px;
+      font-weight: 600;
+      border-radius: 32px;
+      cursor: pointer;
+      text-transform: none;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .btn-secondary:hover,
+    .btn-secondary:focus {
+      background-color: #d9a9ff;
+      color: #4b247a;
+    }
+
+    /* Sections */
+    section {
+      padding: 60px 20px 40px;
+    }
+
+    /* How It Works */
+    .steps {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .step {
+      background: #faf5ff;
+      padding: 14px 12px;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(155, 81, 224, 0.15);
+      text-align: center;
+      color: #6e4aad;
+      font-weight: 600;
+      user-select: none;
+    }
+    .step-icon {
+      font-size: 26px;
+      margin-bottom: 6px;
+      color: #9b51e0;
+    }
+
+    /* What It Measures */
+    .measure-card {
+      background: #fcf9ff;
+      border: 2px solid transparent;
+      padding: 20px 20px;
+      border-radius: 16px;
+      box-shadow: 0 4px 14px rgba(155, 81, 224, 0.07);
+      /* max-width: 500px; */
+    }
+    .measure-items {
+      margin: 0 0 12px 0;
+      color: #7f3fbf;
+      font-weight: 700;
+    }
+    /* Feedback bars */
+    .feedback-bar {
+      height: 10px;
+      border-radius: 12px;
+      margin-top: 10px;
+      background: linear-gradient(to right, #28a745, #ffc107, #dc3545);
+    }
+
+    /* Key Features */
+    .features-list {
+      max-width: 700px;
+      margin: 0 auto;
+      list-style: none;
+      padding-left: 0;
+      color: #5e4b8a;
+      font-weight: 600;
+    }
+    .features-list li {
+      margin-bottom: 15px;
+      position: relative;
+      padding-left: 30px;
+    }
+    .features-list li::before {
+      content: "✔";
+      position: absolute;
+      left: 0;
+      top: 2px;
+      color: #9b51e0;
+      font-weight: 700;
+    }
+
+    /* Note */
+    .note {
+      max-width: 700px;
+      margin: 0 auto;
+      padding-top: 60px;
+      color: #664a99;
+      font-size: 0.9rem;
+      font-style: italic;
+      text-align: center;
+    }
+
+    /* Footer */
+    footer {
+      background: #faf5ff;
+      color: #7f3fbf;
+      padding: 25px 20px;
+      text-align: center;
+      font-size: 0.9rem;
+      user-select: none;
+    }
+
+    /* Responsive typography */
+    @media(min-width: 768px) {
+      .hero h1 {
+        font-size: 3rem;
+      }
+      .btn-primary {
+        font-size: 1.25rem;
+        padding: 16px 30px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <!-- Header / Branding -->
-    <header class="hero">
-        <div class="container">
-            <div class="dev-badge">&lt;dev&gt;</div>
-            <h1>Mobile Applications</h1>
-            <p class="subtitle">Building high-performance, native mobile experiences.</p>
-        </div>
-    </header>
+  <!-- <header class="container" role="banner">
+    <div class="logo" aria-label="DIY Bike Fit Logo">DIY Bike Fit</div>
+    <a href="https://play.google.com/store/apps/details?id=com.diybikefit.app" class="btn-download" role="button" aria-label="Download DIY Bike Fit on Google Play">Download Now</a>
+  </header> -->
 
-    <!-- Apps Section -->
-    <main class="container">
-        <section class="apps-section">
-            <h2>Our Applications</h2>
-            <div class="apps-grid">
-                
-                <!-- App Card (Duplicate this block for more apps) -->
-                <div class="app-card">
-                    <div class="app-icon">
-                        <!-- Standard 1:1 placeholder or your app logo path -->
-                        <span>📱</span> 
-                    </div>
-                    <div class="app-info">
-                        <h3>Cycling Fit App</h3>
-                        <p class="app-category">Sports & Performance</p>
-                        <p class="app-description">Optimize your riding geometry and performance tracking. Fine-tune your setup with advanced configuration tools.</p>
-                        <a href="#" class="btn-play-store">Get it on Google Play</a>
-                    </div>
-                </div>
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <h1 id="hero-title">Perfect Your Cycling Posture with DIY Bike Fit</h1>
+      <p>Capture, analyze, and optimize your bike fit instantly.</p>
+      <div class="btn-group">
+        <a href="https://play.google.com/store/apps/details?id=com.diy.bikefit&hl=en" class="btn-primary" role="button" aria-label="Get DIY Bike Fit on Google Play">
+          Get it on Google Play
+        </a>
+      </div>
+    </section>
 
-            </div>
-        </section>
+    <section class="container" aria-labelledby="how-it-works-title">
+      <h2 id="how-it-works-title">How It Works</h2>
+      <div class="steps" role="list">
+        <article class="step" role="listitem" tabindex="0">
+          <div class="step-icon" aria-hidden="true">📸</div>
+          <h3>Capture</h3>
+          <p>Photo from camera or gallery.</p>
+        </article>
+        <article class="step" role="listitem" tabindex="0">
+          <div class="step-icon" aria-hidden="true">🔍</div>
+          <h3>Analyze</h3>
+          <p>Maps key body points instantly.</p>
+        </article>
+        <article class="step" role="listitem" tabindex="0">
+          <div class="step-icon" aria-hidden="true">✋</div>
+          <h3>Adjust</h3>
+          <p>Drag-and-drop to fine-tune points.</p>
+        </article>
+        <article class="step" role="listitem" tabindex="0">
+          <div class="step-icon" aria-hidden="true">📊</div>
+          <h3>Optimize</h3>
+          <p>Compare angles to ideal ranges.</p>
+        </article>
+      </div>
+    </section>
 
-        <!-- Privacy & Compliance Section -->
-        <section class="compliance-section">
-            <h2>Developer Information & Policy</h2>
-            <p>We are dedicated to building privacy-first applications with clean, functional design interfaces.</p>
-            <div class="links-group">
-                <a href="/privacy-policy.html">Privacy Policy</a>
-                <a href="/terms.html">Terms of Service</a>
-                <a href="/app-ads.txt">app-ads.txt</a>
-            </div>
-        </section>
-    </main>
+    <section class="container" aria-labelledby="measures-title">
+      <h2 id="measures-title">Measured Angles</h2>
+      <div class="measure-card">
+        <p class="measure-items">&middot; Hip &middot; Knee &middot; Ankle &middot; Elbow &middot; Shoulder &middot; Back &middot; Foot Positioning</p>
+        <div class="feedback-bar" aria-label="Color-coded feedback indicator"></div>
+      </div>
+    </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>&copy; 2026 Developer Portfolio. All rights reserved.</p>
-        </div>
-    </footer>
+    <section class="container" aria-labelledby="features-title">
+      <h2 id="features-title">Key Features</h2>
+      <ul class="features-list">
+        <li>Privacy First: Analysis happens locally on your device. No images uploaded.</li>
+        <li>Completely Free: Unlimited photo uploads and analysis.</li>
+        <li>No Sign-up Needed: Start improving your fit immediately.</li>
+      </ul>
+    </section>
+
+    <section class="container note" aria-label="Disclaimer">
+      <p>Results are for informational purposes only. Consult a professional bike fitter if you experience discomfort.</p>
+    </section>
+  </main>
 
 </body>
 </html>
